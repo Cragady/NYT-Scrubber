@@ -1,15 +1,13 @@
 import React from 'react';
-
 import InputFields from "./InputFields";
-import Button from "./Button";
 
 export const TextLay = props => {
     return(
         <section>
-            <h5>{props.headName}</h5>
+            <h5 className="my-2">{props.headName}</h5>
             <InputFields 
                 onChange={props.onChange} 
-                placeholder={props.headName} 
+                placeholder={props.headName !== "Topic" ? "YYYY e.g. 2018" : "Topic"} 
             />
         </section>
     );

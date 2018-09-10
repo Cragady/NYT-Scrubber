@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import TextLay from './components/TextLay';
-import InputFields from "./components/InputFields";
 import Button from "./components/Button";
 import './App.css';
 
@@ -38,17 +37,23 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">New York Times Article Scrubber</h1>
         </header>
-        <h2 className="App-intro">
-          Search
-        </h2>
-        {/* <InputFields onChange={this.handleChengezz} placeholder="topic" /> */}
-        {divees}
-        <Button onClick={this.thisFunk}>
-          Tester Button
-        </Button>
+        <section className="card mt-3 col-8 mx-auto">
+          <h2 className="card-header">
+            Search
+          </h2>
+          {divees}
+          <div>
+            <Button className="btn btn-default col-4 m-2" onClick={this.thisFunk}>
+              Tester Button
+            </Button>
+            <Button className="btn btn-default col-4 m-2">
+              Show Saved
+            </Button>
+          </div>
+        </section>
       </div>
     );
-  }
-}
+  };
+};
 
 export default App;
