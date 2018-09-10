@@ -1,7 +1,7 @@
 import React from "react";
 
-export const TextArea = props => (
+export const TextIn = props => (
     <input className="form-control" {...props} />
 );
 
-export default TextArea;
+export default TextIn;

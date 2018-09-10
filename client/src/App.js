@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Tester from './components/Tester';
+import TextLay from './components/TextLay';
 import InputFields from "./components/InputFields";
 import Button from "./components/Button";
 import './App.css';
@@ -10,35 +10,41 @@ class App extends Component {
     this.state = {
       input: ""
     };
-
-    this.handleChengezz = 
-      this.handleChengezz.bind(this);
-    this.thisFunk =
-      this.thisFunk.bind(this);
   };
 
-  handleChengezz(event){
+  handleChengezz = (event)=>{
     this.setState({
       input: event.target.value
     });
   };
 
-  thisFunk(){
+  thisFunk = ()=>{
     console.log(this.state.input);
   };
 
   render() {
+    const topHeads = ["Topic", "Start Year", "End Year"];
+    const divees = topHeads.map((x) =>
+      <TextLay 
+        key={x}
+        onChange={this.handleChengezz}
+        headName={x}
+        onClick={this.thisFunk}
+      />
+    );
+    console.log(divees);
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">New York Times Article Scrubber</h1>
         </header>
-        <p className="App-intro">
+        <h2 className="App-intro">
           Search
-        </p>
-        <InputFields onChange={this.handleChengezz} />
+        </h2>
+        {/* <InputFields onChange={this.handleChengezz} placeholder="topic" /> */}
+        {divees}
         <Button onClick={this.thisFunk}>
-          Hellzyeh
+          Tester Button
         </Button>
       </div>
     );
