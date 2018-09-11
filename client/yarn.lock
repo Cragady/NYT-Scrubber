@@ -5443,6 +5443,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-axios@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-axios/-/react-axios-2.0.1.tgz#78ac554e74e0769955179339969ebbe4c697c965"
+
 react-dev-utils@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-5.0.2.tgz#7bb68d2c4f6ffe7ed1184c5b0124fcad692774d2"

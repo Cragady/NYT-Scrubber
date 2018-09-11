@@ -6,6 +6,7 @@ export const TextLay = props => {
         <section>
             <h5 className="my-2">{props.headName}</h5>
             <InputFields 
+                id={props.headName.replace(/\s/g, '')}
                 onChange={props.onChange} 
                 placeholder={props.headName !== "Topic" ? "YYYY e.g. 2018" : "Topic"} 
             />

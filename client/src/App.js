@@ -1,24 +1,30 @@
 import React, { Component } from 'react';
 import TextLay from './components/TextLay';
 import Button from "./components/Button";
+import Carded from "./components/Carded";
 import './App.css';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      input: ""
+      Topic: "",
+      StartYear: "",
+      EndYear: "",
+      searched: [],
+      saved: []
     };
   };
 
   handleChengezz = (event)=>{
+    const { id, value} = event.target;
     this.setState({
-      input: event.target.value
+      [id]: value
     });
   };
 
   thisFunk = ()=>{
-    console.log(this.state.input);
+    console.log(this.state);
   };
 
   render() {
@@ -31,16 +37,14 @@ class App extends Component {
         onClick={this.thisFunk}
       />
     );
-    console.log(divees);
     return (
       <div className="App">
+
         <header className="App-header">
           <h1 className="App-title">New York Times Article Scrubber</h1>
         </header>
-        <section className="card mt-3 col-8 mx-auto">
-          <h2 className="card-header">
-            Search
-          </h2>
+
+        <Carded cardName="Search">
           {divees}
           <div>
             <Button className="btn btn-default col-4 m-2" onClick={this.thisFunk}>
@@ -50,7 +54,16 @@ class App extends Component {
               Show Saved
             </Button>
           </div>
-        </section>
+        </Carded>
+
+        {this.state.searched.length > 0 ? (<Carded cardName="Results">
+          This is Test
+        </Carded>) : null}
+
+        {this.state.saved.length > 0 ? (<Carded cardName="Saved">
+          This is Test
+        </Carded>) : null}
+
       </div>
     );
   };
