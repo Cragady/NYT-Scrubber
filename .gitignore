@@ -24,3 +24,5 @@ yarn-error.log*
 notes.md
 homework_instructions.md
 HW_Assignment.png
+
+.env

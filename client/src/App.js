@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TextLay from './components/TextLay';
 import Button from "./components/Button";
 import Carded from "./components/Carded";
+import API from "./utils/API";
 import './App.css';
 
 class App extends Component {
@@ -9,23 +10,41 @@ class App extends Component {
     super(props);
     this.state = {
       Topic: "",
-      StartYear: "",
-      EndYear: "",
+      StartYear: "2018",
+      EndYear: "2018",
       searched: [],
       saved: []
     };
   };
 
   handleChengezz = (event)=>{
-    const { id, value} = event.target;
+    const { id, value } = event.target;
     this.setState({
       [id]: value
     });
   };
 
-  thisFunk = ()=>{
-    console.log(this.state);
-  };
+  // thisFunk = ()=>{
+  //   console.log(this.state);
+  // };
+
+  getArts = (event)=>{
+    event.preventDefault();
+    API.searchArtics(this.state).then(result =>{
+      const searchArr = result.data.response.docs.slice(0, 5).map( x=>
+        <section key={x._id} className="card m-2">
+          <div className="card-header">
+            {x.headline.main}
+          </div>
+          {x.web_url}
+        </section>
+      );
+      this.setState({
+        searched: searchArr
+      })
+      console.log(result.data.response.docs);
+    });
+  }
 
   render() {
     const topHeads = ["Topic", "Start Year", "End Year"];
@@ -47,7 +66,7 @@ class App extends Component {
         <Carded cardName="Search">
           {divees}
           <div>
-            <Button className="btn btn-default col-4 m-2" onClick={this.thisFunk}>
+            <Button className="btn btn-default col-4 m-2" onClick={this.getArts}>
               Tester Button
             </Button>
             <Button className="btn btn-default col-4 m-2">
@@ -57,7 +76,7 @@ class App extends Component {
         </Carded>
 
         {this.state.searched.length > 0 ? (<Carded cardName="Results">
-          This is Test
+          {this.state.searched}
         </Carded>) : null}
 
         {this.state.saved.length > 0 ? (<Carded cardName="Saved">
