@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./components/pages/Home";
-import HelloDiv from "./components/pages/Saved";
+import Saved from "./components/pages/Saved";
 import './App.css';
 
 class App extends Component {
@@ -23,7 +23,7 @@ class App extends Component {
             </header>
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/null" component={HelloDiv} />
+              <Route exact path="/saved" component={Saved} />
               <Route component={Home} />
             </Switch>
           </div>

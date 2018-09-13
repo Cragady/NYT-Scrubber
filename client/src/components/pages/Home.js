@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import TextLay from '../SearchForm/TextLay';
 import Button from "../Button/Button";
 import Carded from "../Carded/Carded";
+import AnchorTag from "../AnchorTag/AnchorTag";
+import Saved from "./Saved";
 import API from "../../utils/API";
 
 class Home extends Component {
@@ -27,12 +29,10 @@ class Home extends Component {
     event.preventDefault();
     API.searchArtics(this.state).then(result =>{
       const searchArr = result.data.response.docs.slice(0, 5).map( x=>
-        <section key={x._id} className="card m-2">
-          <div className="card-header">
-            {x.headline.main}
-          </div>
-          {x.web_url}
-        </section>
+        <Carded key={x._id} className="card m-2" id={x._id} cardName={x.headline.main}>
+            <AnchorTag href={x.web_url} />
+            <Button classext="btn-success mx-auto" children="Save" />
+        </Carded>
       );
       this.setState({
         searched: searchArr
@@ -56,24 +56,19 @@ class Home extends Component {
         <div className="Page">
 
             <Carded cardName="Search">
-            {divees}
-            <div>
-                <Button className="btn btn-default col-4 m-2" onClick={this.getArts}>
-                Tester Button
-                </Button>
-                <Button className="btn btn-default col-4 m-2">
-                Show Saved
-                </Button>
-            </div>
+                {divees}
+                <div>
+                    <Button onClick={this.getArts}>
+                        Search
+                    </Button>
+                </div>
             </Carded>
 
             {this.state.searched.length > 0 ? (<Carded cardName="Results">
-            {this.state.searched}
+                {this.state.searched}
             </Carded>) : null}
 
-            {this.state.saved.length > 0 ? (<Carded cardName="Saved">
-            This is Test
-            </Carded>) : null}
+            <Saved />
 
       </div>
     );
