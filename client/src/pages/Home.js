@@ -32,6 +32,7 @@ class Home extends Component {
         <Carded key={x._id} className="card m-2" id={x._id} cardname={x.headline.main}>
             <div>Published: {x.pub_date}</div>
             <AnchorTag href={x.web_url} />
+            {/* Just store all info in button I guess lol */}
             <Button classext="btn-success mx-auto" children="Save" />
         </Carded>
       );
