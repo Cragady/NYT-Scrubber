@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import TextLay from '../SearchForm/TextLay';
-import Button from "../Button/Button";
-import Carded from "../Carded/Carded";
-import AnchorTag from "../AnchorTag/AnchorTag";
+import TextLay from '../components/SearchForm/TextLay';
+import Button from "../components/Button/Button";
+import Carded from "../components/Carded/Carded";
+import AnchorTag from "../components/AnchorTag/AnchorTag";
 import Saved from "./Saved";
-import API from "../../utils/API";
+import API from "../utils/API";
 
 class Home extends Component {
   constructor(props){
@@ -29,7 +29,8 @@ class Home extends Component {
     event.preventDefault();
     API.searchArtics(this.state).then(result =>{
       const searchArr = result.data.response.docs.slice(0, 5).map( x=>
-        <Carded key={x._id} className="card m-2" id={x._id} cardName={x.headline.main}>
+        <Carded key={x._id} className="card m-2" id={x._id} cardname={x.headline.main}>
+            <div>Published: {x.pub_date}</div>
             <AnchorTag href={x.web_url} />
             <Button classext="btn-success mx-auto" children="Save" />
         </Carded>
@@ -55,7 +56,7 @@ class Home extends Component {
 
         <div className="Page">
 
-            <Carded cardName="Search">
+            <Carded cardname="Search">
                 {divees}
                 <div>
                     <Button onClick={this.getArts}>
@@ -64,7 +65,7 @@ class Home extends Component {
                 </div>
             </Carded>
 
-            {this.state.searched.length > 0 ? (<Carded cardName="Results">
+            {this.state.searched.length > 0 ? (<Carded cardname="Results">
                 {this.state.searched}
             </Carded>) : null}
 

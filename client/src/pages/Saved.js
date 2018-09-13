@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Carded from "../Carded/Carded";
-import AnchorTag from "../AnchorTag/AnchorTag";
+import Carded from "../components/Carded/Carded";
+import AnchorTag from "../components/AnchorTag/AnchorTag";
 
 class Saved extends Component {
     constructor(props){
@@ -19,15 +19,16 @@ class Saved extends Component {
     };
     render(){
         const savvy = this.state.saved.map((x) => 
-            <Carded key={x._id} id={x._id} className="card m-2" cardName={x.headlineMain}>
+            <Carded key={x._id} id={x._id} className="card m-2" cardname={x.headlineMain}>
                 <AnchorTag href={x.web_url} />
+                {/* <InputFields id={"note-" + x._id} placeholder="Write a Note!" /> */}
             </Carded>
         );
         return(
             <div className="Savvy">
-                {this.state.saved.length > 0 ? (<Carded cardName="Saved">
+                {this.state.saved.length > 0 ? (<Carded cardname="Saved">
                     {savvy}
-                </Carded>) : <Carded cardName="Oops">
+                </Carded>) : <Carded cardname="Oops">
                     Looks like there's nothing here. Search some articles and save them!
                 </Carded>}
             </div>
