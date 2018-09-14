@@ -6,7 +6,8 @@ export const Button = props => (
             props.classext ? 
             ("btn btn-default col-4 m-2 " + props.classext) : 
             ("btn btn-default col-4 m-2")} 
-            {...props}>
+            onClick={props.onClick} 
+            {...props.attribsext}>
                 {props.children}
     </button>
 );

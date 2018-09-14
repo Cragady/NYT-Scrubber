@@ -26,15 +26,29 @@ class Home extends Component {
     });
   };
 
+  printThings = event => {
+    const {aid, headlinemain, published, link} = event.target.dataset;
+    console.log(aid, headlinemain, published, link);
+    console.log(event.target);
+    console.log(this);
+  };
+
   getArts = (event)=>{
     event.preventDefault();
     API.searchArtics(this.state).then(result =>{
       const searchArr = result.data.response.docs.slice(0, 5).map( x=>
-        <Carded key={x._id} className="card m-2" id={x._id} cardname={x.headline.main}>
+        <Carded key={x._id} className="card m-2" cardname={x.headline.main}>
             <div>Published: {moment(x.pub_date).format("MMMM Do YYYY, h:mm a")}</div>
             <AnchorTag href={x.web_url} />
             {/* Just store all info in button I guess lol */}
-            <Button classext="btn-success mx-auto" children="Save" />
+            <Button classext="btn-success mx-auto" children="Save" 
+              attribsext={{
+                "data-aid": x._id,
+                "data-headlinemain": x.headline.main,
+                "data-published": x.pub_date,
+                "data-link": x.web_url
+              }}
+            onClick={this.printThings} />
         </Carded>
       );
       this.setState({
