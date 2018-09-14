@@ -4,6 +4,7 @@ import Button from "../components/Button/Button";
 import Carded from "../components/Carded/Carded";
 import AnchorTag from "../components/AnchorTag/AnchorTag";
 import Saved from "./Saved";
+import moment from "moment";
 import API from "../utils/API";
 
 class Home extends Component {
@@ -30,7 +31,7 @@ class Home extends Component {
     API.searchArtics(this.state).then(result =>{
       const searchArr = result.data.response.docs.slice(0, 5).map( x=>
         <Carded key={x._id} className="card m-2" id={x._id} cardname={x.headline.main}>
-            <div>Published: {x.pub_date}</div>
+            <div>Published: {moment(x.pub_date).format("MMMM Do YYYY, h:mm a")}</div>
             <AnchorTag href={x.web_url} />
             {/* Just store all info in button I guess lol */}
             <Button classext="btn-success mx-auto" children="Save" />
