@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Carded from "../components/Carded/Carded";
 import AnchorTag from "../components/AnchorTag/AnchorTag";
+import API from "../utils/API";
 
 class Saved extends Component {
     constructor(props){
@@ -10,11 +11,16 @@ class Saved extends Component {
         };
     };
     componentDidMount(){
-        this.savdArtz();
+        this.loadArts();
     };
-    savdArtz = ()=>{
-        this.setState({
-            saved: [{_id: "yo", headlineMain: "shtuffs", web_url: "www.google.com"}]
+    
+    loadArts = ()=>{
+        API.getArts()
+        .then(res =>{
+            console.log(res);
+            // this.setState(
+            //     this.state.saved.push({})
+            // )    
         });
     };
     render(){

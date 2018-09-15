@@ -27,10 +27,28 @@ class Home extends Component {
   };
 
   printThings = event => {
-    const {aid, headlinemain, published, link} = event.target.dataset;
-    console.log(aid, headlinemain, published, link);
-    console.log(event.target);
-    console.log(this);
+    event.preventDefault();
+    const {aid, headlinemain, published, link, comment} = event.target.dataset;
+    let commPass;
+    if(comment){
+      commPass = comment;
+    } else {
+      commPass = "";
+    };
+    console.log(typeof aid)
+    console.log(typeof headlinemain)
+    console.log(typeof published)
+    console.log(typeof link)
+    console.log(typeof commPass)
+    API.saveArt({
+      _id: aid,
+      headline: headlinemain,
+      link: link,
+      comment: commPass,
+      date: published
+    })
+      .then(res => console.log("success"))
+      .catch(err => console.log(err));
   };
 
   getArts = (event)=>{
