@@ -35,11 +35,6 @@ class Home extends Component {
     } else {
       commPass = "";
     };
-    console.log(typeof aid)
-    console.log(typeof headlinemain)
-    console.log(typeof published)
-    console.log(typeof link)
-    console.log(typeof commPass)
     API.saveArt({
       _id: aid,
       headline: headlinemain,
@@ -47,7 +42,7 @@ class Home extends Component {
       comment: commPass,
       date: published
     })
-      .then(res => console.log("success"))
+      .then(res => console.log("Saved!"))
       .catch(err => console.log(err));
   };
 
@@ -58,7 +53,6 @@ class Home extends Component {
         <Carded key={x._id} className="card m-2" cardname={x.headline.main}>
             <div>Published: {moment(x.pub_date).format("MMMM Do YYYY, h:mm a")}</div>
             <AnchorTag href={x.web_url} />
-            {/* Just store all info in button I guess lol */}
             <Button classext="btn-success mx-auto" children="Save" 
               attribsext={{
                 "data-aid": x._id,
@@ -71,8 +65,7 @@ class Home extends Component {
       );
       this.setState({
         searched: searchArr
-      })
-      console.log(result.data.response.docs);
+      });
     });
   }
 
