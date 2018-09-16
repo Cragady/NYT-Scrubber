@@ -1,5 +1,5 @@
 const db = require("../models");
-const mongojs = require("mongojs");
+const mongoose = require("mongoose");
 
 // Defining methods for the artiController
 module.exports = {
@@ -11,30 +11,32 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
+    req.params.id = mongoose.Types.ObjectId(req.params.id);
     db.Article
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  //^^^ test this later by injecing code for it
   create: function(req, res) {
-    console.log("hit-here");
-    req.body._id = mongojs.ObjectId(req.body._id);
+    req.body._id = mongoose.Types.ObjectId(req.body._id);
     db.Article
       .create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
+    req.params.id = mongoose.Types.ObjectId(req.params.id);
     db.Article
       .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {
+    req.params.id = mongoose.Types.ObjectId(req.params.id);
     db.Article
-      .findById({ _id: req.params.id })
-      .then(dbModel => dbModel.remove())
+      .deleteOne({_id: req.params.id})
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .catch(err => {console.log(err);res.status(422).json(err)});
   }
 };

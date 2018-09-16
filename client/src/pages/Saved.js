@@ -15,7 +15,15 @@ class Saved extends Component {
     componentDidMount(){
         this.loadArts();
     };
-    
+
+    destroyArts = id =>{
+        API.deleteArt(id)
+            .then(res =>{
+                this.loadArts();
+            })
+            .catch(err => console.log(err));
+    };
+     
     loadArts = ()=>{
         API.getArts()
         .then(res =>{
@@ -31,7 +39,8 @@ class Saved extends Component {
                                 "data-headlinemain": x.headline,
                                 "data-published": x.date,
                                 "data-link": x.link
-                            }} />
+                            }} 
+                        onClick={() => this.destroyArts(x._id)} />
                     </Carded>
                 )
             );

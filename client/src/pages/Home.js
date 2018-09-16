@@ -65,7 +65,7 @@ class Home extends Component {
       );
       this.setState({
         searched: searchArr
-      });
+      })
     });
   }
 
