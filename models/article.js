@@ -16,7 +16,8 @@ const articleSchema = new Schema({
   headline: { type: String, required: true },
   link: { type: String, required: true },
   comment: String,
-  date: { type: String, default: "000000 000" }
+  date: { type: String, default: "000000 000" },
+  dateAdded: {type: Date, default: Date.now}
 });
 
 const Article = mongoose.model("Article", articleSchema);

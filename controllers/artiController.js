@@ -6,7 +6,7 @@ module.exports = {
   findAll: function(req, res) {
     db.Article
       .find(req.query)
-      .sort({ date: -1 })
+      .sort({ dateAdded: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -17,7 +17,6 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  //^^^ test this later by injecing code for it
   create: function(req, res) {
     req.body._id = mongoose.Types.ObjectId(req.body._id);
     db.Article
@@ -37,6 +36,6 @@ module.exports = {
     db.Article
       .deleteOne({_id: req.params.id})
       .then(dbModel => res.json(dbModel))
-      .catch(err => {console.log(err);res.status(422).json(err)});
+      .catch(err => res.status(422).json(err));
   }
 };

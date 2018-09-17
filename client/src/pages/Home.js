@@ -15,7 +15,7 @@ class Home extends Component {
       StartYear: "2018",
       EndYear: "2018",
       searched: [],
-      saved: []
+      saved: false
     };
   };
 
@@ -42,7 +42,18 @@ class Home extends Component {
       comment: commPass,
       date: published
     })
-      .then(res => console.log("Saved!"))
+      .then(res => {
+        console.log("Saved!");
+        if(this.state.saved === true){
+          this.setState({
+            saved: false
+          });
+        } else {
+          this.setState({
+            saved: true
+          });
+        }
+      })
       .catch(err => console.log(err));
   };
 
@@ -96,7 +107,7 @@ class Home extends Component {
                 {this.state.searched}
             </Carded>) : null}
 
-            <Saved />
+            <Saved savved={this.state.saved}/>
 
       </div>
     );

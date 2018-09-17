@@ -16,6 +16,12 @@ class Saved extends Component {
         this.loadArts();
     };
 
+    componentDidUpdate(prevProps){
+        if(this.props.savved !== prevProps.savved){
+            this.loadArts();
+        };
+    };
+
     destroyArts = id =>{
         API.deleteArt(id)
             .then(res =>{

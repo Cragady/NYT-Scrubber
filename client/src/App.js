@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Saved from "./pages/Saved";
+import Nav from "./components/Nav";
 import './App.css';
 
 class App extends Component {
@@ -16,6 +17,8 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
+
+          <Nav />
 
           <div>
             <header className="App-header">
