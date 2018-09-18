@@ -9,6 +9,7 @@ export const TextLay = props => {
                 id={props.headName.replace(/\s/g, '')}
                 onChange={props.onChange} 
                 placeholder={props.headName !== "Topic" ? "YYYY e.g. 2018" : "Topic"} 
+                value={props.value}
             />
         </section>
     );

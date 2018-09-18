@@ -12,8 +12,8 @@ class Home extends Component {
     super(props);
     this.state = {
       Topic: "",
-      StartYear: "2018",
-      EndYear: "2018",
+      StartYear: "",
+      EndYear: "",
       searched: [],
       saved: false
     };
@@ -21,10 +21,40 @@ class Home extends Component {
 
   handleChengezz = (event)=>{
     const { id, value } = event.target;
+    if(id === "StartYear"){
+      const StartPasser = {id: id, StartYear: value}; 
+      this.yearValidation(StartPasser);
+    } else if (id === "EndYear"){
+      const EndPasser = {id: id, EndYear: value};
+      this.yearValidation(EndPasser);
+    };
     this.setState({
       [id]: value
     });
   };
+
+  yearValidation = (years)=>{
+    const { StartYear, EndYear } = years;
+    switch(true) {
+      case StartYear > this.state.EndYear && StartYear.length === 4:
+        this.setState({
+          EndYear: StartYear
+        })
+        break;
+      case EndYear < this.state.StartYear && EndYear.length === 4:
+        this.setState({
+          StartYear: EndYear
+        })
+        break;
+      default: 
+        break;
+    };
+  };
+
+  idPassInheritance = arg =>{
+    const argPass = arg.replace(/\s/g, '');
+    return argPass;
+  }
 
   printThings = event => {
     event.preventDefault();
@@ -87,6 +117,7 @@ class Home extends Component {
         key={x}
         onChange={this.handleChengezz}
         headName={x}
+        value={this.state[this.idPassInheritance(x)]}
         onClick={this.thisFunk}
       />
     );

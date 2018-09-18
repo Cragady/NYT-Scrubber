@@ -4,8 +4,31 @@ const nyArty = process.env.REACT_APP_NYT_KYU;
 export default {
     searchArtics: (urlPass) =>{
         const {Topic, StartYear, EndYear} = urlPass;
-        console.log(urlPass);
-        return (axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${nyArty}&q=${Topic}&begin_date=${StartYear}0101&end_date=${EndYear}1231`));
+        let startPass = StartYear;
+        let endPass = EndYear;
+        const ranCheck = /^\d{0,4}$/;
+        if(!(StartYear.match(ranCheck))){
+            startPass = 9999
+            console.log(StartYear + "regged start");
+            console.log(startPass + "begin pass");
+        };
+        if(!(EndYear.match(ranCheck))){
+            endPass = 1;
+            console.log(EndYear + "regged end");
+            console.log(endPass + "passed");
+        };
+        if((startPass > (new Date()).getFullYear()) || (startPass === "")){
+            startPass = (new Date()).getFullYear();
+        } else if (startPass < 1851){
+            startPass = 1851;
+        };
+        if((endPass < startPass) || (endPass === "")){
+            endPass = startPass;
+        } else if(endPass > (new Date()).getFullYear()){
+            endPass = (new Date()).getFullYear();
+        };
+        console.log(`Start is: ${startPass} and end is: ${endPass}`);
+        return (axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${nyArty}&q=${Topic}&begin_date=${startPass}0101&end_date=${endPass}1231`));
     },
 
     getArts: function(){
