@@ -84,9 +84,8 @@ class Home extends Component {
     event.preventDefault();
     API.searchArtics(this.state).then(result =>{
       const searchArr = result.data.response.docs.slice(0, 5).map( x=>
-        <Carded key={x._id} id={"r-" + x._id} className="card m-2" cardname={x.headline.main}>
-            <div>Published: {moment(x.pub_date).format("MMMM Do YYYY, h:mm a")}</div>
-            <AnchorTag href={x.web_url} />
+        <Carded key={x._id} id={"r-" + x._id} className="card m-2" published={moment(x.pub_date).format("MMMM Do YYYY, h:mm a")}cardname={x.headline.main}>
+            <AnchorTag className="a-cust" href={x.web_url} />
             <Button classext="btn-success mx-auto" children="Save" 
               attribsext={{
                 "data-aid": x._id,

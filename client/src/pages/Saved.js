@@ -3,7 +3,7 @@ import Carded from "../components/Carded";
 import Button from "../components/Button/Button";
 import AnchorTag from "../components/AnchorTag/AnchorTag";
 import InputFields from "../components/SearchForm/InputFields";
-import InComms from "../components/inComms";
+import Comms from "../components/inComms";
 import moment from "moment";
 import API from "../utils/API";
 
@@ -79,13 +79,13 @@ class Saved extends Component {
             const savvy = [];
             res.data.map((x) => 
                 savvy.push(
-                    <Carded key={x._id} id={x._id} className="card m-2" cardname={x.headline}>
-                        <div>Published: {moment(x.date).format("MMMM Do YYYY, h:mm a")}</div>
-                        <AnchorTag href={x.link} />
+                    <Carded key={x._id} id={x._id} className="card m-2" published={moment(x.date).format("MMMM Do YYYY, h:mm a")} cardname={x.headline}>
+                        <AnchorTag className="a-cust" href={x.link} />
+                        <div>Comments:</div>
                         {x.comment ? (x.comment.map(commented=>
-                            <div key={commented._id}> {commented.comment} 
-                            <button key={"b-" + commented._id} id={commented._id} onClick={this.commentUnWright}>Delete</button>
-                            </div>
+                            <Comms key={commented._id} id={commented._id} onClick={this.commentUnWright}>
+                                {commented.comment}
+                            </Comms>
                             
                         )) : null}
                         <InputFields 
@@ -94,7 +94,7 @@ class Saved extends Component {
                             placeholder="Enter your comment"
                             classext="px-3 bg-light" />
                         <Button classext="btn btn-success mx-auto" children="Comment" onClick={this.commSub} />
-                        <Button classext="btn-danger mx-auto" children="Delete" 
+                        <Button classext="btn-danger mx-auto" children="Remove" 
                             attribsext={{
                                 "data-aid": x._id,
                                 "data-headlinemain": x.headline,
