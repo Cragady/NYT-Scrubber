@@ -6,6 +6,7 @@ module.exports = {
   findAll: function(req, res) {
     db.Article
       .find(req.query)
+      .populate("comment")
       .sort({ dateAdded: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -25,9 +26,15 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
+    console.log(typeof req.params.id);
+    console.log(req.params.id + "first one I guess");
+    console.log(req.body);
     req.params.id = mongoose.Types.ObjectId(req.params.id);
+    console.log(typeof req.params.id);
     db.Article
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .findOneAndUpdate({ _id: req.params.id }, {
+        $push: {comment: req.body}
+      }, { new: true })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

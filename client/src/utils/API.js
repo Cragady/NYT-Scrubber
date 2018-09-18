@@ -9,13 +9,9 @@ export default {
         const ranCheck = /^\d{0,4}$/;
         if(!(StartYear.match(ranCheck))){
             startPass = 9999
-            console.log(StartYear + "regged start");
-            console.log(startPass + "begin pass");
         };
         if(!(EndYear.match(ranCheck))){
             endPass = 1;
-            console.log(EndYear + "regged end");
-            console.log(endPass + "passed");
         };
         if((startPass > (new Date()).getFullYear()) || (startPass === "")){
             startPass = (new Date()).getFullYear();
@@ -27,7 +23,6 @@ export default {
         } else if(endPass > (new Date()).getFullYear()){
             endPass = (new Date()).getFullYear();
         };
-        console.log(`Start is: ${startPass} and end is: ${endPass}`);
         return (axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${nyArty}&q=${Topic}&begin_date=${startPass}0101&end_date=${endPass}1231`));
     },
 
@@ -45,5 +40,21 @@ export default {
 
     saveArt: function(artData){
         return axios.post("/api/arti", artData);
+    },
+
+    upArt: function(id, artData){
+        return axios.put(("/api/arti/" + id), artData);
+    },
+
+    getComms: function(){
+        return axios.get("/api/comm");
+    },
+    
+    saveComm: function(commData){
+        return axios.post("/api/comm", commData);
+    },
+
+    deleteComm: function(commId){
+        return axios.delete("/api/comm/" + commId);
     }
 };

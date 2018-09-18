@@ -15,7 +15,12 @@ const articleSchema = new Schema({
   },
   headline: { type: String, required: true },
   link: { type: String, required: true },
-  comment: String,
+  comment: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comments"
+    }
+  ],
   date: { type: String, default: "000000 000" },
   dateAdded: {type: Date, default: Date.now}
 });

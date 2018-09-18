@@ -1,4 +1,5 @@
 import React from "react";
+import "./Carded.css";
 
 export const Carded = props => (
     <section className="card mt-3 col-8 mx-auto" {...props}>

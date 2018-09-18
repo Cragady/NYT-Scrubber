@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TextLay from '../components/SearchForm/TextLay';
 import Button from "../components/Button/Button";
-import Carded from "../components/Carded/Carded";
+import Carded from "../components/Carded";
 import AnchorTag from "../components/AnchorTag/AnchorTag";
 import Saved from "./Saved";
 import moment from "moment";
@@ -58,18 +58,11 @@ class Home extends Component {
 
   printThings = event => {
     event.preventDefault();
-    const {aid, headlinemain, published, link, comment} = event.target.dataset;
-    let commPass;
-    if(comment){
-      commPass = comment;
-    } else {
-      commPass = "";
-    };
+    const {aid, headlinemain, published, link} = event.target.dataset;
     API.saveArt({
       _id: aid,
       headline: headlinemain,
       link: link,
-      comment: commPass,
       date: published
     })
       .then(res => {
@@ -91,7 +84,7 @@ class Home extends Component {
     event.preventDefault();
     API.searchArtics(this.state).then(result =>{
       const searchArr = result.data.response.docs.slice(0, 5).map( x=>
-        <Carded key={x._id} className="card m-2" cardname={x.headline.main}>
+        <Carded key={x._id} id={"r-" + x._id} className="card m-2" cardname={x.headline.main}>
             <div>Published: {moment(x.pub_date).format("MMMM Do YYYY, h:mm a")}</div>
             <AnchorTag href={x.web_url} />
             <Button classext="btn-success mx-auto" children="Save" 
@@ -126,6 +119,10 @@ class Home extends Component {
         <div className="Page">
 
             <Carded cardname="Search">
+                <div>
+                    Search articles from 1851 to the present year!
+                </div>
+                <hr />
                 {divees}
                 <div>
                     <Button onClick={this.getArts}>

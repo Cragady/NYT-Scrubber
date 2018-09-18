@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import Carded from "../components/Carded/Carded";
+import Carded from "../components/Carded";
 import Button from "../components/Button/Button";
 import AnchorTag from "../components/AnchorTag/AnchorTag";
+import InputFields from "../components/SearchForm/InputFields";
+import InComms from "../components/inComms";
 import moment from "moment";
 import API from "../utils/API";
 
@@ -9,7 +11,9 @@ class Saved extends Component {
     constructor(props){
         super(props);
         this.state = {
-            saved: []
+            saved: [],
+            comment: "",
+            artiid: ""
         };
     };
     componentDidMount(){
@@ -20,6 +24,37 @@ class Saved extends Component {
         if(this.props.savved !== prevProps.savved){
             this.loadArts();
         };
+    };
+
+    commentWright = (event)=>{
+        const {artiid} = event.target.dataset;
+        this.setState({
+            comment: event.target.value,
+            artiid: artiid
+        });
+    };
+
+    commSub = (event)=>{
+        event.preventDefault();
+        const {label} = event.target.dataset;
+        console.log(typeof this.state.artiid);
+        console.log(this.state.artiid + " meehhh");
+        if(this.state.comment === ""){
+            return;
+        };
+        API.saveComm({
+            comment: this.state.comment,
+            article: this.state.artiid
+        }).then(resComm =>{
+            API.upArt(resComm.data.article, resComm.data)
+                .then(
+                    this.setState({
+                        comment: "",
+                        artiid: ""
+                    })
+                );
+            this.loadArts();
+        })
     };
 
     destroyArts = id =>{
@@ -39,6 +74,15 @@ class Saved extends Component {
                     <Carded key={x._id} id={x._id} className="card m-2" cardname={x.headline}>
                         <div>Published: {moment(x.date).format("MMMM Do YYYY, h:mm a")}</div>
                         <AnchorTag href={x.link} />
+                        {x.comment ? (x.comment.map(commented=>
+                            <div key={commented._id}> {commented.comment} </div>
+                        )) : null}
+                        <InputFields 
+                            onChange={this.commentWright} 
+                            data-artiid={x._id} 
+                            placeholder="Enter your comment"
+                            classext="px-3 bg-light" />
+                        <Button classext="btn btn-success mx-auto" children="Comment" onClick={this.commSub} />
                         <Button classext="btn-danger mx-auto" children="Delete" 
                             attribsext={{
                                 "data-aid": x._id,
@@ -51,7 +95,7 @@ class Saved extends Component {
                 )
             );
             this.setState({
-                saved: savvy
+                saved: savvy,
             });
         });
     };
