@@ -26,11 +26,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
-    console.log(typeof req.params.id);
-    console.log(req.params.id + "first one I guess");
-    console.log(req.body);
     req.params.id = mongoose.Types.ObjectId(req.params.id);
-    console.log(typeof req.params.id);
     db.Article
       .findOneAndUpdate({ _id: req.params.id }, {
         $push: {comment: req.body}
@@ -42,7 +38,10 @@ module.exports = {
     req.params.id = mongoose.Types.ObjectId(req.params.id);
     db.Article
       .deleteOne({_id: req.params.id})
-      .then(dbModel => res.json(dbModel))
+      .then(dbModel => {
+        dbModel.idPass = req.params.id;
+        res.json(dbModel)
+      })
       .catch(err => res.status(422).json(err));
   }
 };

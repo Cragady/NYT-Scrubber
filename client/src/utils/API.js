@@ -56,5 +56,8 @@ export default {
 
     deleteComm: function(commId){
         return axios.delete("/api/comm/" + commId);
+    },
+    deleteManyComm: function(artiid){
+        return axios.delete("/api/comm/many-del/" + artiid)
     }
 };

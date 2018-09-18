@@ -17,7 +17,17 @@ module.exports = {
                 res.json(dbModel);
             });
       },
-      remove: function(req, res){
-
+      removeMany: function(req, res){
+        db.Comments
+            .deleteMany({"article": req.params.id})
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+      },
+      removeOne: function(req, res){
+          req.params.id = mongoose.Types.ObjectId(req.params.id);
+          db.Comments
+            .deleteOne({_id: req.params.id})
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
       }
-}
+};

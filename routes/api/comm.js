@@ -7,6 +7,10 @@ router.route("/")
 
 router
     .route("/:id")
-    .delete(commController.remove);
+    .delete(commController.removeOne);
+
+router
+    .route("/many-del/:id")
+    .delete(commController.removeMany);
 
 module.exports = router;

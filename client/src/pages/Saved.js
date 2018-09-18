@@ -34,11 +34,16 @@ class Saved extends Component {
         });
     };
 
+    commentUnWright = (event)=>{
+        const {id} = event.target;
+        API.deleteComm(id)
+            .then(res =>{
+                this.loadArts();
+            });
+    };
+
     commSub = (event)=>{
         event.preventDefault();
-        const {label} = event.target.dataset;
-        console.log(typeof this.state.artiid);
-        console.log(this.state.artiid + " meehhh");
         if(this.state.comment === ""){
             return;
         };
@@ -60,7 +65,10 @@ class Saved extends Component {
     destroyArts = id =>{
         API.deleteArt(id)
             .then(res =>{
-                this.loadArts();
+                API.deleteManyComm(res.data.idPass)
+                    .then(delRes =>{
+                        this.loadArts();
+                    });
             })
             .catch(err => console.log(err));
     };
@@ -75,7 +83,10 @@ class Saved extends Component {
                         <div>Published: {moment(x.date).format("MMMM Do YYYY, h:mm a")}</div>
                         <AnchorTag href={x.link} />
                         {x.comment ? (x.comment.map(commented=>
-                            <div key={commented._id}> {commented.comment} </div>
+                            <div key={commented._id}> {commented.comment} 
+                            <button key={"b-" + commented._id} id={commented._id} onClick={this.commentUnWright}>Delete</button>
+                            </div>
+                            
                         )) : null}
                         <InputFields 
                             onChange={this.commentWright} 
